@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router";
+import { Applicants } from "./routes/Applicants";
+import { CandidatePage } from "./routes/CandidatePage";
+import { Compare } from "./routes/Compare";
 import { Home } from "./routes/Home";
+import { RoleSetup } from "./routes/RoleSetup";
+import { Roles } from "./routes/Roles";
 import { Method } from "./routes/Method";
 import { QuickMatch } from "./routes/QuickMatch";
 
@@ -62,6 +67,7 @@ export function App() {
           </Link>
           <nav aria-label="Main">
             <NavLink to="/match">Quick match</NavLink>
+            <NavLink to="/roles">Roles</NavLink>
             <NavLink to="/method">Method</NavLink>
             <a className="nav-ext" href={LINKS.github} target="_blank" rel="noopener">
               GitHub
@@ -75,6 +81,12 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/match" element={<QuickMatch />} />
           <Route path="/method" element={<Method />} />
+          <Route path="/roles" element={<Roles />} />
+          <Route path="/roles/new" element={<RoleSetup />} />
+          <Route path="/roles/:roleId" element={<Applicants />} />
+          <Route path="/roles/:roleId/edit" element={<RoleSetup />} />
+          <Route path="/roles/:roleId/c/:candidateId" element={<CandidatePage />} />
+          <Route path="/roles/:roleId/compare" element={<Compare />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

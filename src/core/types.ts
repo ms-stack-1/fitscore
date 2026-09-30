@@ -80,6 +80,10 @@ export interface Role {
   criteria: Criterion[];
   weights: CategoryWeights;
   logistics: LogisticsProfile;
+  /** Blind mode for applicants added to this role. Default on. */
+  blind?: boolean;
+  /** Keep city/state through blind mode so logistics can be scored. Default on. */
+  keepLocation?: boolean;
   createdAt: number;
   updatedAt: number;
 }
@@ -205,4 +209,6 @@ export interface CandidateResult {
   result: JudgeResult;
   scorecard: ScoreCard;
   scoredAt: number;
+  /** scoringKey(role) at scoring time; a mismatch means criteria changed since. */
+  roleKey?: string;
 }

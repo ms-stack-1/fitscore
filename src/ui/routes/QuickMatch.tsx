@@ -4,15 +4,35 @@ import { DECISION_NOTICE } from "../../core/audit";
 import { bandLabel } from "../../core/score";
 import { isDemoId, loadDemo, loadSampleJd, type DemoProfile } from "../../app/demo";
 import { quickMatch, type MatchOutput } from "../../app/pipeline";
-import { Breakdown } from "../components/Breakdown";
-import { CvView } from "../components/CvView";
-import { ScoreBoard } from "../components/ScoreBoard";
+import { EngineBadge, ResultView } from "../components/ResultView";
 import { SourceInput } from "../components/SourceInput";
 
 const MIN_JD = 200;
 const MIN_CV = 200;
 
 type Phase = { kind: "input" } | { kind: "running"; step: string } | { kind: "done"; out: MatchOutput } | { kind: "error"; message: string };
+
+function DemoCta({ demo, subject }: { demo: DemoProfile; subject: string }) {
+  return (
+    <aside className="demo-cta panel" aria-label={`Contact ${demo.name}`}>
+      <div>
+        <p className="eyebrow">This is a real candidate</p>
+        <p>{demo.name} built FitScore. If this role fits, the evidence above is the conversation starter.</p>
+      </div>
+      <div className="demo-cta-actions">
+        <a className="btn" href={`mailto:${demo.links.email}?subject=${encodeURIComponent(subject)}`}>
+          Email {demo.name.split(" ")[0]}
+        </a>
+        <a className="btn btn-ghost" href={demo.links.resume} target="_blank" rel="noopener">
+          Download CV
+        </a>
+        <a className="btn btn-ghost" href={demo.links.portfolio} target="_blank" rel="noopener">
+          Portfolio
+        </a>
+      </div>
+    </aside>
+  );
+}
 
 export function QuickMatch() {
   const [params] = useSearchParams();
@@ -23,7 +43,6 @@ export function QuickMatch() {
   const [blind, setBlind] = useState(true);
   const [hideLocation, setHideLocation] = useState(false);
   const [phase, setPhase] = useState<Phase>({ kind: "input" });
-  const [activeLine, setActiveLine] = useState<string | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,17 +75,6 @@ export function QuickMatch() {
     }
   }
 
-  function cite(lineId: string) {
-    setActiveLine(lineId);
-    const el = document.getElementById(`line-${lineId}`);
-    const cvPanel = document.getElementById("cv-panel") as HTMLDetailsElement | null;
-    if (cvPanel) cvPanel.open = true;
-    requestAnimationFrame(() => {
-      el?.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      el?.focus({ preventScroll: true });
-    });
-  }
-
   if (phase.kind === "done") {
     const { role, candidate, result, scorecard, redactions } = phase.out;
     const removed = redactions.reduce((n, r) => n + r.count, 0);
@@ -83,10 +91,7 @@ export function QuickMatch() {
               {Math.round(scorecard.overall)} out of 100, {bandLabel(scorecard.band).toLowerCase()}, across {role.criteria.length} criteria.
             </p>
             <div className="res-meta">
-              <span className="engine-badge" title="The engine judges; FitScore's own code turns judgments into points.">
-                Engine: {result.engine.label}
-                {result.ms !== undefined ? ` · ${result.ms} ms` : ""}
-              </span>
+              <EngineBadge result={result} />
               {candidate.blind && (
                 <span className="engine-badge">
                   Blind mode: {removed} identifying detail{removed === 1 ? "" : "s"} removed
@@ -102,46 +107,12 @@ export function QuickMatch() {
             <p className="notice">{DECISION_NOTICE}</p>
           </header>
 
-          <ScoreBoard card={scorecard} />
-
-          {demo && (
-            <aside className="demo-cta panel" aria-label={`Contact ${demo.name}`}>
-              <div>
-                <p className="eyebrow">This is a real candidate</p>
-                <p>
-                  {demo.name} built FitScore. If this role fits, the evidence above is the conversation starter.
-                </p>
-              </div>
-              <div className="demo-cta-actions">
-                <a className="btn" href={`mailto:${demo.links.email}?subject=${encodeURIComponent(`${role.title}: FitScore ${scorecard.overall}/100`)}`}>
-                  Email {demo.name.split(" ")[0]}
-                </a>
-                <a className="btn btn-ghost" href={demo.links.resume} target="_blank" rel="noopener">
-                  Download CV
-                </a>
-                <a className="btn btn-ghost" href={demo.links.portfolio} target="_blank" rel="noopener">
-                  Portfolio
-                </a>
-              </div>
-            </aside>
-          )}
-
-          <Breakdown card={scorecard} lines={candidate.lines} onCite={cite} />
-
-          <details id="cv-panel" className="panel cv-panel">
-            <summary>
-              The CV as scored ({candidate.lines.length} lines{candidate.blind ? ", blind" : ""})
-            </summary>
-            <p className="cv-panel-hint">Every citation above points to one of these numbered lines. Highlighted lines earned points.</p>
-            <CvView lines={candidate.lines} judgments={result.judgments} active={activeLine} />
-          </details>
-
-          {result.engine.kind === "local" && (
-            <p className="footnote">
-              The rule engine recognises named tools, dated tenure, degrees and stated logistics, and falls back to keyword overlap for everything
-              else. It is conservative by design. <a href="/method">How scoring works</a>.
-            </p>
-          )}
+          <ResultView
+            candidate={candidate}
+            result={result}
+            scorecard={scorecard}
+            between={demo ? <DemoCta demo={demo} subject={`${role.title}: FitScore ${scorecard.overall}/100`} /> : null}
+          />
         </div>
       </div>
     );
