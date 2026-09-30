@@ -1,0 +1,22 @@
+Taylor Morgan Reyes
+Austin, TX | (737) 555-0199 | taylor.reyes@example.com
+Authorized to work in the US
+
+Summary
+Performance marketer with 7 years running paid acquisition for D2C brands.
+
+Experience
+Growth Marketing Lead, Trailhead Goods | Mar 2021 - Present
+- Managed $2.4M annual Google Ads and Meta Ads spend at 3.1x ROAS
+- Ran 40+ A/B tests on landing pages, lifting conversion rate 22%
+- Built GA4 and Google Tag Manager tracking; wrote SQL for CAC and LTV cohorts
+- Weekly Looker Studio dashboards for leadership
+- Launched Klaviyo email automation flows driving 18% of revenue
+
+Paid Media Specialist, Canyon Supply Co | Jun 2018 - Feb 2021
+- Paid search and paid social on Google Ads, Meta Ads and TikTok Ads
+- Shopify store analytics and merchandising tests
+
+Education
+B.B.A. Marketing, University of Texas at Austin, 2014 - 2018
+Bachelor of Business Administration in Marketing
