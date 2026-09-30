@@ -1,0 +1,94 @@
+/*
+ * FitScore tokens. Ported from the portfolio design system (shuja-portfolio)
+ * so the two read as one brand: Google Sans, cyan accent, light default with a
+ * selected (not inverted) dark theme.
+ *
+ * Status colours are reserved for match state (met / partly / not found) and
+ * always ship with a glyph and a word. Scores themselves are magnitude, so the
+ * gauges wear the accent, never a status colour.
+ */
+:root {
+  --bg: #eef3fa;
+  --bg-2: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f7fafe;
+  --line: rgba(15, 23, 42, 0.1);
+  --line-strong: rgba(15, 23, 42, 0.2);
+
+  --accent: #0891b2;
+  --accent-text: #0e7490; /* text only: AA on light surfaces */
+  --accent-dim: rgba(8, 145, 178, 0.14);
+  --accent-line: rgba(8, 145, 178, 0.34);
+  --on-accent: #ffffff;
+
+  --good: #059669;
+  --good-text: #047857;
+  --good-dim: rgba(5, 150, 105, 0.1);
+  --warn: #b45309;
+  --warn-text: #b45309;
+  --warn-dim: rgba(180, 83, 9, 0.1);
+  --bad: #b91c1c;
+  --bad-text: #b91c1c;
+  --bad-dim: rgba(185, 28, 28, 0.08);
+
+  --text: #0f172a;
+  --muted: #46566e;
+  --faint: #5c6b80;
+  --prose: #33415c;
+
+  --ring: rgba(8, 145, 178, 0.55);
+  --shadow: 0 6px 24px rgba(15, 23, 42, 0.1);
+  --shadow-panel: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 34px rgba(15, 23, 42, 0.08);
+
+  --font: "Google Sans", "Google Sans Text", system-ui, sans-serif;
+  --font-mono: "Google Sans Code", ui-monospace, monospace;
+
+  --maxw: 1120px;
+  --r: 10px;
+  --r-lg: 14px;
+  --r-sm: 7px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --z-base: 1;
+  --z-header: 60;
+  --z-toast: 90;
+  --z-modal: 100;
+
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --bg: #080b14;
+  --bg-2: #0b1020;
+  --surface: #101726;
+  --surface-2: #141d30;
+  --line: rgba(148, 163, 184, 0.13);
+  --line-strong: rgba(148, 163, 184, 0.24);
+
+  --accent: #22d3ee;
+  --accent-text: #22d3ee;
+  --accent-dim: rgba(34, 211, 238, 0.16);
+  --accent-line: rgba(34, 211, 238, 0.3);
+  --on-accent: #06121a;
+
+  --good: #34d399;
+  --good-text: #34d399;
+  --good-dim: rgba(52, 211, 153, 0.13);
+  --warn: #f5b654;
+  --warn-text: #f5b654;
+  --warn-dim: rgba(245, 182, 84, 0.13);
+  --bad: #f87171;
+  --bad-text: #f87171;
+  --bad-dim: rgba(248, 113, 113, 0.12);
+
+  --text: #e8ecf4;
+  --muted: #8a94a6;
+  --faint: #828c9c;
+  --prose: #c2cad8;
+
+  --ring: rgba(34, 211, 238, 0.6);
+  --shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+  --shadow-panel: 0 0 0 1px rgba(148, 163, 184, 0.04), 0 22px 60px rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
+}

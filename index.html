@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitScore · Evidence-based JD to CV matching</title>
+    <meta name="description" content="Match any job description to any CV and rank applicants against your own criteria. Every point cites the CV line that earned it. Blind by default, local-first, free." />
+    <meta name="theme-color" content="#EEF3FA" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&family=Google+Sans+Code:wght@400..700&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        var t = localStorage.getItem("fs_theme");
+        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="max-width:40rem;margin:4rem auto;padding:0 1rem;font-family:system-ui">
+        FitScore runs entirely in your browser, so it needs JavaScript. Nothing you paste or upload is sent to a server unless you choose an AI engine.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
